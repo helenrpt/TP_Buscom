@@ -9,15 +9,26 @@ uint32_t ticks = 0;
 
 //Timer
 
-void TIMER_DelayUs( uint16_t delayUs){
-    TIM6->CNT=0;
-    TIM6-> ARR =delayUs;
-    //TIM6-> SR&= ~(1>>0); // ou TIM_SR_UIF_Mask
-    TIM6->SR &= ~TIM_SR_UIF;
-    while(TIM6-> SR&= ~TIM_SR_UIF);
+void TIMER6_Init(void) {
+    // 1. Activer l’horloge sur TIM6
+    RCC->APB1ENR |= RCC_APB1ENR_TIM6EN;
 
-    //while (!(TIM6->SR & TIM_SR_UIF)) {}
-    //TIM6->SR &= ~TIM_SR_UIF;
+    // 2. Mettre le prescaler pour que chaque tick fasse 1us
+    // Par exemple, si SystemCoreClock = 16 MHz
+    // PSC = 16-1 = 15 => 1 tick toutes les 1us
+    TIM6->PSC = 15;
+
+    // 3. Upcounter classique, aucune config spéciale
+    TIM6->CR1 = 0; // Compte en mode basique
+}
+
+void TIMER_DelayUs(uint16_t delayUs) {
+    TIM6->ARR = delayUs;
+    TIM6->CNT = 0;
+    TIM6->SR &= ~TIM_SR_UIF;
+    TIM6->CR1 |= TIM_CR1_CEN; // Démarrer
+    while (!(TIM6->SR & TIM_SR_UIF));
+    TIM6->CR1 &= ~TIM_CR1_CEN; // Stopper
 }
 
 

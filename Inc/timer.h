@@ -7,6 +7,7 @@ void SYSTICK_Init(void);
 void SYSTICK_Delay(uint32_t Delay);
 uint32_t SYSTICK_Get(void);
 
+void TIMER6_Init(void);
 void TIMER_DelayUs( uint16_t delayUs);
 
 void DWT_Init(void);
