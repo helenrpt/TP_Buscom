@@ -12,6 +12,9 @@ void GPIO_Init(void){
 	GPIOC->MODER |= INPUT_MODE	<< 26;		// PC13 Input Push-Button
 }
 
+void GPIO_SetPullUp(GPIO_TypeDef* GPIO, uint16_t pin){
+	GPIO->PUPDR |= (1UL << (2 * pin));
+}
 
 void GPIO_SetPin(GPIO_TypeDef* GPIO, uint16_t pin){
 	GPIO->ODR |= 1 << pin ;
