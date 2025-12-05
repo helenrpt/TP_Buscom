@@ -10,7 +10,7 @@
 uint16_t ONEWIRE_RESET(ONEWIRE_PINOUT* oneWirepinout){
     uint16_t presence;
 
-    GPIO_SetPin(oneWirepinout->port, oneWirepinout->pin);
+    //GPIO_SetPin(oneWirepinout->port, oneWirepinout->pin);
     GPIO_ResetPin(oneWirepinout->port, oneWirepinout->pin);
     TIMER_DelayUs(480);
     GPIO_SetPin(oneWirepinout->port, oneWirepinout->pin);

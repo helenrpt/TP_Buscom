@@ -11,13 +11,14 @@ void GPIO_Init(void){
 	GPIOA->MODER |= OUTPUT_MODE <<10;		// PA5 Output LED
 	GPIOC->MODER |= INPUT_MODE	<< 26;		// PC13 Input Push-Button
 
-	/*one wire Init PA6 */
-	GPIOA->MODER  	|=1 << 12;	//mode out
-	GPIOA->OTYPER	|=1 << 6; 	//mode open drain
-	GPIOA->PUPDR	|=1 << 12; 	//pull up
+	/*one wire Init PA10 */
+	GPIOA->MODER  	|=1 << 20;	//mode out
+	GPIOA->OTYPER	|=1 << 10; 	//mode open drain
+	//GPIAO->OSPEEDR	|=3U << 20;
+	GPIOA->PUPDR	|=1 << 20; 	//pull up
 
 	/* PA7 - digital input active thermostat*/
-	GPIOA->MODER  	|= INPUT_MODE << 14;	//mode input
+	//GPIOA->MODER  	|= INPUT_MODE << 14;	//mode input
 }
 
 

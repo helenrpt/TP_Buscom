@@ -9,25 +9,25 @@
 #include "onewire.h"
 #include "interrupt.h"
 
-ONEWIRE_PINOUT PA6 = {GPIOA,6}; //PA6
+ONEWIRE_PINOUT PA10 = {GPIOA,10}; //PA6
 
-
+uint8_t presence;
 int main(void)
 {
 	FPU_Init();
 	GPIO_Init();
-	GPIO_SetPullUp(GPIOA,6);
 	USART2_Init();
-	SYSTICK_Init();
 	TIMER6_Init();
-	EXTI7_Init();  // Configuration de l'interruption sur PA7
+	DWT_Init();
+	//EXTI7_Init();  // Configuration de l'interruption sur PA7
 	while(1){
 		//SYSTICK_Delay(1000);
 		//TIMER_DelayUs(90000);
-		ONEWIRE_RESET(&PA6);
-		TIMER_DelayUs(800);
+		presence =ONEWIRE_RESET(&PA10);
+
+		 //TIMER_DelayUs(480);
 		//ONEWIRE_Writebit0(&PA6);
 		//GPIOA->ODR ^= 1<<5;
-		//printf("Hello\r\n");
+		//printf("present %d",presence);
 	}
 }
