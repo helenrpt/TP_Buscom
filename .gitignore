@@ -16,12 +16,6 @@ objects.list
 objects.mk
 sources.mk
 
-# Metadata Eclipse/STM32CubeIDE
-.metadata/
-.settings/
-.cproject
-.project
-
 # Fichiers de configuration utilisateur
 *.launch
 

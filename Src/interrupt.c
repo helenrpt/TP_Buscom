@@ -1,7 +1,8 @@
-
 #include <stdint.h>
+#include <stdio.h>
 #include "stm32f446xx.h"
 #include "interrupt.h"
+
 
 extern uint32_t ticks;
 
@@ -22,37 +23,63 @@ void SysTick_Handler(void){
 // c. Unmask IT on EXTIx : EXTI->IMR.
 // d. Select Rising or falling trigger edge :  EXTI->RTSR or EXTI->FTSR.
 
-// Configuration de l'interruption EXTI7 pour PA7 (front montant)
-void EXTI7_Init(void) {
-	// a. Enable SYSCFG peripheral clock
+
+
+/* ACTIVATION THERMOSTAT (PA7) INTERRUPT*/
+
+void PA7_Activation_Thermostat_Init(void) {
+
 	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
-	
-	// b. Connect PA7 to EXTI7 (EXTICR2 for EXTI7, bits 12-15)
-	// PORTA = 0000
 	SYSCFG->EXTICR[1] &= ~(0xF << 12);  // Clear bits for EXTI7
 	SYSCFG->EXTICR[1] |= (0x0 << 12);   // PORTA (0x0)
 	
-	// c. Unmask interrupt on EXTI7
 	EXTI->IMR |= EXTI_IMR_MR7;
+	EXTI->PR = EXTI_PR_PR7;
 	
-	// d. Select Rising edge trigger
 	EXTI->RTSR |= EXTI_RTSR_TR7;
-	EXTI->FTSR &= ~EXTI_FTSR_TR7;  // Disable falling edge
+	EXTI->FTSR |= EXTI_FTSR_TR7;  
 	
-	// 1. Enable NVIC interrupt for EXTI9_5
 	NVIC_EnableIRQ(EXTI9_5_IRQn);
 }
 
 // Interrupt Handler for EXTI9_5 (handles EXTI5 to EXTI9)
 void EXTI9_5_IRQHandler(void) {
-	// Check if EXTI7 triggered the interrupt
-	if (EXTI->PR & EXTI_PR_PR7) {
-		// Clear the interrupt flag
-		EXTI->PR = EXTI_PR_PR7;
-		
-		// Your code here - what to do on rising edge of PA7
-		// Example: toggle LED on PA5
-		GPIOA->ODR ^= (1 << 5);
-	}
+    // Premier if - vérifie EXTI_PR_PR7
+    if (EXTI->PR & EXTI_PR_PR7) {
+        EXTI->PR = EXTI_PR_PR7;
+        // Lire l'état actuel de PA7
+        if (GPIOA->IDR & GPIO_IDR_ID7) {
+            // PA7 est HIGH → Rising edge
+            printf("PA7 Rising Edge!\n");
+        } else {
+            // PA7 est LOW → Falling edge
+            printf("PA7 Falling Edge!\n");
+        }
+    } 
 }
 
+
+/* PUSH BUTTON INTERRUPT*/
+void PushButtonInterrup_Init(void) {
+	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+	SYSCFG->EXTICR[3] &= ~(0xF << 4);  // Clear bits for EXTI13
+	SYSCFG->EXTICR[3] |= (0x2 << 4);   // PORTC (0x2)
+	EXTI->IMR |= EXTI_IMR_MR13;
+	EXTI->PR = EXTI_PR_PR13;
+
+	EXTI->FTSR |= EXTI_FTSR_TR13;      // Enable falling edge
+	EXTI->RTSR &= ~EXTI_RTSR_TR13;     // Disable rising edge
+
+	NVIC_EnableIRQ(EXTI15_10_IRQn);
+}
+
+// Interrupt Handler for EXTI15_10 (handles EXTI10 to EXTI15)
+extern uint8_t consigne;
+void EXTI15_10_IRQHandler(void) {
+
+	if (EXTI->PR & EXTI_PR_PR13) {	// Check if EXTI13 triggered the interrupt
+		EXTI->PR = EXTI_PR_PR13;
+		consigne=(consigne+1)%30;
+		printf("Consigne: %d\n", consigne);
+	}
+}

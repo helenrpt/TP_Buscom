@@ -10,6 +10,7 @@ void GPIO_Init(void){
 	/* GPIO Init */
 	GPIOA->MODER |= OUTPUT_MODE <<10;		// PA5 Output LED
 	GPIOC->MODER |= INPUT_MODE	<< 26;		// PC13 Input Push-Button
+	GPIOC->PUPDR |= (0x1 << 26);			// PC13 Pull-up resistor
 
 	/*one wire Init PA10 */
 	GPIOA->MODER  	|=1 << 20;	//mode out
@@ -17,8 +18,9 @@ void GPIO_Init(void){
 	//GPIAO->OSPEEDR	|=3U << 20;
 	GPIOA->PUPDR	|=1 << 20; 	//pull up
 
-	/* PA7 - digital input active thermostat*/
-	//GPIOA->MODER  	|= INPUT_MODE << 14;	//mode input
+	/* PA7 - digital input for 3.3V signal */
+	GPIOA->MODER  	&= ~(0x3 << 14);	// Clear mode bits (input mode = 00)
+	GPIOA->PUPDR	&= ~(0x3 << 14);	// No pull-up/pull-down (floating input)
 }
 
 
