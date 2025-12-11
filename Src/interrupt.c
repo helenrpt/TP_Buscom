@@ -4,6 +4,7 @@
 #include "interrupt.h"
 #include "onewire.h"
 #include "ds18b20.h"
+#include "timer.h"
 
 
 extern uint32_t ticks;
@@ -12,6 +13,44 @@ extern uint32_t ticks;
 void SysTick_Handler(void){
 	ticks++;
 }
+
+
+
+/*LED */
+extern int alarmActive;
+uint16_t blinkCounter;
+
+void TIM6_DAC_IRQHandler(void)
+{
+    if (TIM6->SR & TIM_SR_UIF)
+    {
+        TIM6->SR &= ~TIM_SR_UIF;
+
+        if (alarmActive == 1)
+        {
+            // Clignote toutes les 500 ms
+            blinkCounter++;
+
+            if (blinkCounter >= 2)   // 5 × 100 ms = 500 ms
+            {
+                GPIOA->ODR ^= (1 << 5);   // toggle LED
+                blinkCounter = 0;
+            }
+        }
+        else if (alarmActive == 0)
+        {
+            // LED ON en mode normal
+            GPIOA->ODR |= (1 << 5);
+        }
+        else if (alarmActive == 3)
+        {
+            // LED OFF
+            GPIOA->ODR &= ~(1 << 5);
+        }
+    }
+}
+
+
 
 //////////////// HOW TO SETUP INTERUPT ? ///////////
 // 1. Activate the NVIC IT :  NVIC_EnableIRQ().
@@ -98,3 +137,6 @@ void EXTI15_10_IRQHandler(void) {
 
 	}
 }
+
+
+

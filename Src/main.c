@@ -16,6 +16,7 @@ uint8_t consigne=18;
 uint16_t temp =0;
 float tempsensor =0;
 int alarmSts =0;
+int alarmActive =0;
 
 
 int main(void)
@@ -30,20 +31,17 @@ int main(void)
 	PushButtonInterrup_Init(); // Configuration de l'interruption sur PC13
 	printf("init fait\n\r");
 	
-	TIMER_DelayUs(1000);
+	DWT_Delay(1000);
 	presence =ONEWIRE_RESET(&PA10);
 	printf("present %d\n\r",presence);
 
-	TIMER_DelayUs(1000);
-
-	//write_scratchpad(&PA10 , 0 , 0, 0x7F);
-
+	DWT_Delay(1000);
 
 
 
 	while(1){
 
-
+		alarmActive = 3;
 
 		while(alarmSts ==1){
 		 tempsensor = Temp_Convert(&PA10);
@@ -53,12 +51,15 @@ int main(void)
 
 		 if (DS18B20_CheckAlarm(&PA10))
 		 {
-		     printf(" ALARME DS18B20 ACTIVE !\n");
-		     // ici : activer relais, LED, buzzer, etc.
+		     printf(" ALARME DS18B20 ACTIVE !\n\r");
+		     alarmActive =1;
+
+
 		 }
 		 else
 		 {
-		     printf("OK : pas d’alarme\n");
+		     printf("OK : pas d’alarme\n\r");
+		     alarmActive =0;
 		 }
 
 
@@ -66,16 +67,6 @@ int main(void)
 		}
 
 
-		 //temp = temp_calcul(tempsensor);
-
-		 //printf("temperature %d \n",temp);
-
-
-
-
-
-		//ONEWIRE_Writebit0(&PA6);
-		//GPIOA->ODR ^= 1<<5;
 
 	}
 }

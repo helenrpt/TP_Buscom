@@ -8,7 +8,8 @@ void SYSTICK_Delay(uint32_t Delay);
 uint32_t SYSTICK_Get(void);
 
 void TIMER6_Init(void);
-void TIMER_DelayUs( uint16_t delayUs);
+//void TIMER_DelayUs( uint16_t delayUs);
+void TIM6_DAC_IRQHandler(void);
 
 void DWT_Init(void);
 void DWT_Delay(uint32_t _us);
