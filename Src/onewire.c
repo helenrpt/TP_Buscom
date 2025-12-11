@@ -12,39 +12,39 @@ uint16_t ONEWIRE_RESET(ONEWIRE_PINOUT* oneWirepinout){
     uint16_t presence;
 
     GPIO_ResetPin(oneWirepinout->port, oneWirepinout->pin);
-    TIMER_DelayUs(480);
+    DWT_Delay(480);
     GPIO_SetPin(oneWirepinout->port, oneWirepinout->pin);
-    TIMER_DelayUs(70);
+    DWT_Delay(70);
     presence=GPIO_ReadPin(oneWirepinout->port, oneWirepinout->pin);
-    TIMER_DelayUs(410);
+    DWT_Delay(410);
     return!presence;
 }
 
 
 void ONEWIRE_Writebit0(ONEWIRE_PINOUT* oneWirepinout){
     GPIO_ResetPin(oneWirepinout->port, oneWirepinout->pin);
-    TIMER_DelayUs(60);
+    DWT_Delay(60);
     GPIO_SetPin(oneWirepinout->port, oneWirepinout->pin);
-    TIMER_DelayUs(10);
+    DWT_Delay(10);
 }
 
 
 void ONEWIRE_Writebit1(ONEWIRE_PINOUT* oneWirepinout){
     GPIO_ResetPin(oneWirepinout->port, oneWirepinout->pin);
-    TIMER_DelayUs(6);
+    DWT_Delay(6);
     GPIO_SetPin(oneWirepinout->port, oneWirepinout->pin);
-    TIMER_DelayUs(74);
+    DWT_Delay(74);
 }
 
 
 uint8_t ONEWIRE_ReadBit(ONEWIRE_PINOUT* oneWirepinout){
 	uint8_t data;
     GPIO_ResetPin(oneWirepinout->port, oneWirepinout->pin);
-    TIMER_DelayUs(6);
+    DWT_Delay(6);
     GPIO_SetPin(oneWirepinout->port, oneWirepinout->pin);
-    TIMER_DelayUs(9);
+    DWT_Delay(9);
     data=GPIO_ReadPin(oneWirepinout->port, oneWirepinout->pin);
-    TIMER_DelayUs(45);
+    DWT_Delay(45);
     return data;
 }
 

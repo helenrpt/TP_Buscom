@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "stm32f446xx.h"
 #include "interrupt.h"
+#include "onewire.h"
+#include "ds18b20.h"
 
 
 extern uint32_t ticks;
@@ -43,6 +45,9 @@ void PA7_Activation_Thermostat_Init(void) {
 }
 
 // Interrupt Handler for EXTI9_5 (handles EXTI5 to EXTI9)
+
+extern int alarmSts;
+
 void EXTI9_5_IRQHandler(void) {
     // Premier if - vérifie EXTI_PR_PR7
     if (EXTI->PR & EXTI_PR_PR7) {
@@ -50,10 +55,13 @@ void EXTI9_5_IRQHandler(void) {
         // Lire l'état actuel de PA7
         if (GPIOA->IDR & GPIO_IDR_ID7) {
             // PA7 est HIGH → Rising edge
-            printf("PA7 Rising Edge!\n");
+            printf("Alarm ON!\n\r");
+            alarmSts = 1;
+
         } else {
             // PA7 est LOW → Falling edge
-            printf("PA7 Falling Edge!\n");
+            printf("alarm OFF!\n\r");
+            alarmSts = 0;
         }
     } 
 }
@@ -75,11 +83,18 @@ void PushButtonInterrup_Init(void) {
 
 // Interrupt Handler for EXTI15_10 (handles EXTI10 to EXTI15)
 extern uint8_t consigne;
+extern uint8_t PA10;
 void EXTI15_10_IRQHandler(void) {
 
 	if (EXTI->PR & EXTI_PR_PR13) {	// Check if EXTI13 triggered the interrupt
 		EXTI->PR = EXTI_PR_PR13;
 		consigne=(consigne+1)%30;
-		printf("Consigne: %d\n", consigne);
+		printf("Consigne: %d\n\r", consigne);
+
+		DS18B20_SetAlarm(&PA10, consigne, 0);
+
+
+
+
 	}
 }

@@ -1,0 +1,73 @@
+!SESSION 2025-12-04 13:23:15.763 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data D:\RAPINAT\TP_Buscom
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-04 13:23:21.997
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-04 13:23:22.003
+!MESSAGE Log4j2 initialized with config file D:\RAPINAT\TP_Buscom\.metadata\.log4j2.xml
+
+!ENTRY com.percepio.tracealyzer.core 1 0 2025-12-04 13:23:23.410
+!MESSAGE Activator.start(): Called from com.percepio.tracealyzer.core, version: 1.1.4.v201906050834
+
+!ENTRY com.percepio.tracealyzer.core 2 0 2025-12-04 13:23:23.417
+!MESSAGE ContextManager.reportWarning(): No debug context found
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2025-12-04 13:23:23.425
+!MESSAGE Activator.start(): Called from com.percepio.tracealyzer.ui, version: 1.1.4.v201906050834
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-12-04 13:23:25.033
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-12-04 13:24:07.593 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data D:\RAPINAT\TP_Buscom
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-04 13:24:12.383
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-04 13:24:12.383
+!MESSAGE Log4j2 initialized with config file D:\RAPINAT\TP_Buscom\.metadata\.log4j2.xml
+
+!ENTRY com.percepio.tracealyzer.core 1 0 2025-12-04 13:24:14.063
+!MESSAGE Activator.start(): Called from com.percepio.tracealyzer.core, version: 1.1.4.v201906050834
+
+!ENTRY com.percepio.tracealyzer.core 2 0 2025-12-04 13:24:14.076
+!MESSAGE ContextManager.reportWarning(): No debug context found
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2025-12-04 13:24:14.080
+!MESSAGE Activator.start(): Called from com.percepio.tracealyzer.ui, version: 1.1.4.v201906050834
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-12-04 13:24:15.629
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-12-04 13:24:57.859 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Framework arguments:  D:\RAPINAT\TP_Buscom\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 D:\RAPINAT\TP_Buscom\.project
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-04 13:25:02.654
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-04 13:25:02.654
+!MESSAGE Log4j2 initialized with config file D:\RAPINAT\TP_Buscom\.metadata\.log4j2.xml
+
+!ENTRY com.percepio.tracealyzer.core 1 0 2025-12-04 13:25:03.910
+!MESSAGE Activator.start(): Called from com.percepio.tracealyzer.core, version: 1.1.4.v201906050834
+
+!ENTRY com.percepio.tracealyzer.core 2 0 2025-12-04 13:25:03.919
+!MESSAGE ContextManager.reportWarning(): No debug context found
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2025-12-04 13:25:03.923
+!MESSAGE Activator.start(): Called from com.percepio.tracealyzer.ui, version: 1.1.4.v201906050834
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-12-04 13:25:05.430
+!MESSAGE Started RMI Server, listening on port 41337
